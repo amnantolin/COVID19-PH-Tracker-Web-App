@@ -13,7 +13,7 @@ dotenv.config({path: "var.env"});
 const url = process.env.MONGOLAB_URI;       
 
 // RUN SCHEDULED UPDATES (EVERY 12 HRS)
-const runup = schedule.scheduleJob("33 8 * * *", () =>
+const runup = schedule.scheduleJob("0 */12 * * *", () =>
 {
     const cp = childProcess.fork(path.join(__dirname, "helpers/csv_dl.js"));
     cp.on("exit", (code, signal) => {
@@ -100,6 +100,6 @@ mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true}, (err, d
         console.log('Unable to connect to the mongoDB server. Error:', err);
     } 
     else{
-        console.log('Connection established to', url);
+        console.log('Connection established to MORI-1 Database');
     }
 });
