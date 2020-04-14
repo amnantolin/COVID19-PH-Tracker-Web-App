@@ -100,6 +100,6 @@ mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true}, (err, d
         console.log('Unable to connect to the mongoDB server. Error:', err);
     } 
     else{
-        console.log('Connection established to MORI-1 Database');
+        console.log('Connection established to mongoDB server');
     }
 });
