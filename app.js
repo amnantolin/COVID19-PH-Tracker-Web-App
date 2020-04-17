@@ -42,8 +42,23 @@ app.get('/', (req, res) =>
 
 app.get('/home', (req, res) => 
 {
-    res.render("homepage", { title: "Home" })
-});
+    var dateslist = [];
+    var plist = [];
+    var rlist = [];
+    var dlist = [];
+    var difflist = [];
+    phcases.find({}).then(eachOne => {
+        for(var i=0; i < eachOne.length; i++){
+            dateslist.push(eachOne[i]["datelog"]);
+            plist.push(eachOne[i]["pcaseph"]);
+            rlist.push(eachOne[i]["rcaseph"]);
+            dlist.push(eachOne[i]["dcaseph"]);
+            difflist.push(eachOne[i]["diff"]);
+        }
+        res.send(dateslist);
+        // CONTINUE FRONT-END HERE
+    })
+}) 
 
 // ROUTES FOR GETTING SPECIFIC FIELD
 app.get('/api/all', (req, res) =>
