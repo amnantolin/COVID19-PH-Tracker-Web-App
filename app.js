@@ -20,11 +20,7 @@ const runup = schedule.scheduleJob("0 */12 * * *", () =>
         console.log("Download Done!", {code: code, signal: signal});
         const cp2 = childProcess.fork(path.join(__dirname, "helpers/csv_parse.js"));
         cp2.on("exit", (code, signal) => {
-<<<<<<< HEAD
             console.log("Database Update Done!", {code: code, signal: signal});
-=======
-            console.log("CSV Update Done!", {code: code, signal: signal});
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
         });
         cp2.on("error2", console.error.bind(console));
     });
@@ -59,40 +55,27 @@ app.get('/api/all', (req, res) =>
 
 app.get('/api/datelog', (req, res) =>
 {
-<<<<<<< HEAD
     phcases.find({}, { _id:0, pcaseph:0, rcaseph:0, dcaseph:0, diff: 0 }).then(eachOne => {
-=======
-    phcases.find({}, { _id:0, pcaseph:0, rcaseph:0, dcaseph:0 }).then(eachOne => {
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
         res.json(eachOne);
     })
 });
 
 app.get('/api/pcasesph', (req, res) =>
 {
-<<<<<<< HEAD
     phcases.find({}, { _id:0, datelog:0, rcaseph:0, dcaseph:0, diff: 0 }).then(eachOne => {
-=======
-    phcases.find({}, { _id:0, datelog:0, rcaseph:0, dcaseph:0 }).then(eachOne => {
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
         res.json(eachOne);
     })
 });
 
 app.get('/api/rcasesph', (req, res) =>
 {
-<<<<<<< HEAD
     phcases.find({}, { _id:0, datelog:0, pcaseph:0, dcaseph:0, diff: 0 }).then(eachOne => {
-=======
-    phcases.find({}, { _id:0, datelog:0, pcaseph:0, dcaseph:0 }).then(eachOne => {
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
         res.json(eachOne);
     })
 });
 
 app.get('/api/dcasesph', (req, res) =>
 {
-<<<<<<< HEAD
     phcases.find({}, { _id:0, datelog:0, rcaseph:0, pcaseph:0, diff: 0 }).then(eachOne => {
         res.json(eachOne);
     })
@@ -101,9 +84,6 @@ app.get('/api/dcasesph', (req, res) =>
 app.get('/api/diff', (req, res) =>
 {
     phcases.find({}, { _id:0, datelog:0, rcaseph:0, pcaseph:0, dcaseph: 0 }).then(eachOne => {
-=======
-    phcases.find({}, { _id:0, datelog:0, rcaseph:0, pcaseph:0 }).then(eachOne => {
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
         res.json(eachOne);
     })
 });

@@ -1,20 +1,13 @@
 const fs = require("fs");
-<<<<<<< HEAD
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const async = require("async");
 const phcases = require("./schema.js");
-=======
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
 
 const csvpath1 = `${__dirname}/../csv/cases.csv`;
 const csvpath2 = `${__dirname}/../csv/deaths.csv`;
 const csvpath3 = `${__dirname}/../csv/recovered.csv`;
-<<<<<<< HEAD
 var temp = [];
-=======
-const datapath = `${__dirname}/../csv/_phdata.csv`;
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
 
 // UPDATE LOCAL CSV DATA
 files = [csvpath1, csvpath2, csvpath3];
@@ -23,7 +16,6 @@ for (var i=0; i<files.length; i++)
     var data = fs.readFileSync(files[i], "UTF-8");
     const lines = data.split(/\r?\n/);
     lines.forEach((line)=>{
-<<<<<<< HEAD
         if(line.includes("Philippines") || line.includes("Province/State") && i==0){
             temp.push(line);
         }
@@ -113,17 +105,3 @@ q.push({name: 'DC'}, 5, function(err) {
 
 
 
-=======
-        if(line.includes("Philippines")){
-            fs.appendFile(datapath, '\r\n'+line, (err) => {
-                if (err) throw err;
-                console.log("Saved!");
-            });
-        }
-    });
-}
-// fs.unlink(datapath, (err) => {
-//     if (err) throw err;
-//     console.log("Deleted!");
-// });
->>>>>>> 5fc23bae37fb2f07e47a8297bd50cf4c68910e3b
