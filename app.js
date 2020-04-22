@@ -5,15 +5,20 @@ const mongoose = require("mongoose");
 const childProcess = require("child_process");
 const schedule = require("node-schedule");
 const fs = require("fs");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const phcases = require("./helpers/schema.js");
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import App from './helpers/index.js'
 
 const app = express();
 
 dotenv.config({path: "var.env"});
 const url = process.env.MONGOLAB_URI;       
 
-// RUN SCHEDULED UPDATES (EVERY 12 HRS)
-const runup = schedule.scheduleJob("0 */12 * * *", () =>
+// RUN SCHEDULED UPDATES (EVERY 8 HRS)
+const runup = schedule.scheduleJob("0 */8 * * *", () =>
 {
     const cp = childProcess.fork(path.join(__dirname, "helpers/csv_dl.js"));
     cp.on("exit", (code, signal) => {
@@ -32,13 +37,14 @@ app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug"); 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "views")));
 
 // ROUTES
-app.get('/', (req, res) => 
-{   
-    res.render("app", { title: "Welcome" })
-});
+// app.get('/x', (req, res) => 
+// {   
+//     const x = {case: 'hey'};
+//     res.render("test", { xx: JSON.stringify(x) });
+// });
 
 app.get('/home', (req, res) => 
 {
@@ -55,8 +61,10 @@ app.get('/home', (req, res) =>
             dlist.push(eachOne[i]["dcaseph"]);
             difflist.push(eachOne[i]["diff"]);
         }
-        res.send(dateslist);
-        // CONTINUE FRONT-END HERE
+        const p = plist[plist.length-1];
+        const d = dlist[dlist.length-1];
+        const r = rlist[rlist.length-1];
+        res.render("test", { pp: JSON.stringify(p), rr: JSON.stringify(r), dd: JSON.stringify(d) });
     })
 }) 
 

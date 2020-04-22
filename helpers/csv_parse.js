@@ -26,7 +26,7 @@ for (var i=0; i<files.length; i++)
 var header = temp[0].split(",");
 var cases = temp[1].split(",");
 var deaths = temp[2].split(",");
-var recoveries = temp[2].split(",");
+var recoveries = temp[3].split(",");
 var toSave = [];
 
 // MONGODB UPLOAD DATA

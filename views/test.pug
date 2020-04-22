@@ -1,0 +1,124 @@
+
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  title PHCD
+  meta(name='description' content='')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  meta(name='robots' content='all,follow')
+  // Bootstrap CSS
+  link(rel='stylesheet' href='vendor/bootstrap/css/bootstrap.min.css')
+  // Font Awesome CSS
+  link(rel='stylesheet' href='vendor/font-awesome/css/font-awesome.min.css')
+  // Custom Font Icons CSS
+  link(rel='stylesheet' href='css/font.css')
+  // Google fonts - Muli
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Muli:300,400,700')
+  // theme stylesheet
+  link#theme-stylesheet(rel='stylesheet' href='css/style.blue.css')
+  // Custom stylesheet - for your changes
+  link(rel='stylesheet' href='css/custom.css')
+  // Favicon
+  link(rel='shortcut icon' href='img/favicon.ico')
+  // Tweaks for older IEs
+  //if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+header.header
+  nav.navbar.navbar-expand-lg
+    .container-fluid.d-flex.align-items-center.justify-content-between
+      .navbar-header
+        // Navbar Header
+        a.navbar-brand(href='index.html')
+          .brand-text.brand-big.visible.text-uppercase
+            strong.text-primary PH
+            strong Covid19
+            strong.text-primary Tracker
+          .brand-text.brand-sm
+            strong.text-primary PH
+            strong C
+            strong.text-primary T
+        // Sidebar Toggle Btn
+        button.sidebar-toggle
+          i.fa.fa-long-arrow-left
+.d-flex.align-items-stretch
+  // Sidebar Navigation
+  nav#sidebar
+    // Sidebar Navidation Menus
+    ul.list-unstyled
+      li.active
+        a(href='index.html')
+          i.icon-home
+          | Home
+      li
+        a(href='tables.html')
+          i.icon-grid
+          | Tables
+      li
+        a(href='charts.html')
+          i.fa.fa-bar-chart
+          | Charts
+      li
+        a(href='forms.html')
+          i.icon-padnote
+          | Forms
+      li
+        a(href='#')
+          i.icon-settings
+          | About Us
+  .page-content
+    section
+      .page-header
+        .container-fluid.text-center
+          h2.h5.no-margin-bottom.text-primary PH Covid-19 Information as of April 18, 2020 12:00:00 GMT+8
+    section.no-padding-top.no-padding-bottom
+      .container-fluid
+        .row
+          .col-md-4.col-sm-6
+            .statistic-block.block
+              .progress-details.d-flex.align-items-end.justify-content-between
+                .title
+                  .icon
+                    i.icon-line-chart
+                  strong CASES
+                .number.dashtext-2 #{pp}
+          .col-md-4.col-sm-6
+            .statistic-block.block
+              .progress-details.d-flex.align-items-end.justify-content-between
+                .title
+                  .icon
+                    i.icon-paper-and-pencil
+                  strong DEATHS
+                .number.dashtext-3 #{dd}
+          .col-md-4.col-sm-6
+            .statistic-block.block
+              .progress-details.d-flex.align-items-end.justify-content-between
+                .title
+                  .icon
+                    i.icon-page
+                  strong RECOVERIES
+                .number.dashtext-4 #{rr}
+    section.no-padding-bottom
+      .container-fluid
+        .row
+          .col-lg-12
+            .line-cahrt.block
+              canvas#lineCahrt
+    footer.footer
+      .footer__block.block.no-margin-bottom
+        .container-fluid.text-center
+          // Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)
+          p.no-margin-bottom
+            | 2020 &copy; Your company. Design by 
+            a(href='https://bootstrapious.com/p/bootstrap-4-dark-admin') Bootstrapious
+            | .
+// JavaScript files
+script(src='vendor/jquery/jquery.min.js')
+script(src='vendor/popper.js/umd/popper.min.js')
+script(src='vendor/bootstrap/js/bootstrap.min.js')
+script(src='vendor/jquery.cookie/jquery.cookie.js')
+script(src='vendor/chart.js/Chart.min.js')
+script(src='vendor/jquery-validation/jquery.validate.min.js')
+script(src='js/charts-home.js')
+script(src='js/front.js')
