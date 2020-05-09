@@ -5,12 +5,7 @@ const mongoose = require("mongoose");
 const childProcess = require("child_process");
 const schedule = require("node-schedule");
 const fs = require("fs");
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const phcases = require("./helpers/schema.js");
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import App from './helpers/index.js'
 
 const app = express();
 
@@ -18,8 +13,9 @@ dotenv.config({path: "var.env"});
 const url = process.env.MONGOLAB_URI;       
 
 // RUN SCHEDULED UPDATES (EVERY 8 HRS)
-const runup = schedule.scheduleJob("0 */8 * * *", () =>
+const runup = schedule.scheduleJob("0 */6 * * *", () =>
 {
+    getDateTime();
     const cp = childProcess.fork(path.join(__dirname, "helpers/csv_dl.js"));
     cp.on("exit", (code, signal) => {
         console.log("Download Done!", {code: code, signal: signal});
@@ -40,33 +36,49 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "views")));
 
 // ROUTES
-// app.get('/x', (req, res) => 
-// {   
-//     const x = {case: 'hey'};
-//     res.render("test", { xx: JSON.stringify(x) });
-// });
-
 app.get('/home', (req, res) => 
 {
-    var dateslist = [];
     var plist = [];
     var rlist = [];
     var dlist = [];
-    var difflist = [];
+    var datelog = [];
+    var diffp = [];
+    var diffd = [];
+    var diffr = [];
     phcases.find({}).then(eachOne => {
         for(var i=0; i < eachOne.length; i++){
-            dateslist.push(eachOne[i]["datelog"]);
+            datelog.push(eachOne[i]["datelog"])
             plist.push(eachOne[i]["pcaseph"]);
             rlist.push(eachOne[i]["rcaseph"]);
             dlist.push(eachOne[i]["dcaseph"]);
-            difflist.push(eachOne[i]["diff"]);
+            diffp.push(eachOne[i]["diffp"]);
+            diffd.push(eachOne[i]["diffd"]);
+            diffr.push(eachOne[i]["diffr"]);
         }
         const p = plist[plist.length-1];
         const d = dlist[dlist.length-1];
         const r = rlist[rlist.length-1];
-        res.render("test", { pp: JSON.stringify(p), rr: JSON.stringify(r), dd: JSON.stringify(d) });
+        const datetime = fs.readFileSync(path.join(__dirname, "csv", "date.txt")).toString();
+        res.render("home", { pos: JSON.stringify(p), rec: JSON.stringify(r), dea: JSON.stringify(d), 
+            date: JSON.stringify(datetime), dl: JSON.stringify(datelog), dp: JSON.stringify(diffp),
+            dd: JSON.stringify(diffd), dr: JSON.stringify(diffr) });
     })
 }) 
+
+app.get('/aboutus', (req, res) => 
+{
+    res.render("aboutus", {});
+})
+
+function getDateTime()
+{
+    const format = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year:'numeric', 
+    hour:'numeric', minute:'numeric', hour12:false, timeZoneName:'long', timeZone:'Asia/Manila' });
+    const date = format.format(new Date());
+    fs.writeFile(path.join(__dirname, "csv", "date.txt"), date, (err) => {
+        if (err) throw err;
+    })
+}
 
 // ROUTES FOR GETTING SPECIFIC FIELD
 app.get('/api/all', (req, res) =>
@@ -109,19 +121,6 @@ app.get('/api/diff', (req, res) =>
     phcases.find({}, { _id:0, datelog:0, rcaseph:0, pcaseph:0, dcaseph: 0 }).then(eachOne => {
         res.json(eachOne);
     })
-});
-
-app.post('/api/phcases', (req, res) =>
-{
-    phcases.create({
-        id: req.body.iddata,
-        datelog: req.body.datelogdata,
-        pcaseph: req.body.pcasephdata,
-        rcaseph: req.body.rcasephdata,
-        dcaseph: req.body.dcasephdata,
-    }).then(covid19 => {
-        res.json(covid19)
-    });
 });
 
 mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true}, (err, db) => 

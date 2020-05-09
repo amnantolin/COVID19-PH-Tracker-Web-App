@@ -37,9 +37,12 @@ const opt = {useUnifiedTopology: true, useNewUrlParser: true};
 function toStore(){
     for(var i=4; i < header.length; i++){
         var toIns = {datelog: header[i], pcaseph: cases[i], dcaseph: deaths[i], 
-            rcaseph: recoveries[i], diff: parseInt(cases[i])-parseInt(cases[i-1])};
+            rcaseph: recoveries[i], diffp: parseInt(cases[i])-parseInt(cases[i-1]), 
+            diffd: parseInt(deaths[i])-parseInt(deaths[i-1]), 
+            diffr: parseInt(recoveries[i])-parseInt(recoveries[i-1])};
         var toInsOpt = {datelog: header[i], pcaseph: cases[i], dcaseph: deaths[i], 
-            rcaseph: recoveries[i], diff: parseInt(cases[i])};
+            rcaseph: recoveries[i], diffp: parseInt(cases[i]), diffd: parseInt(deaths[i]),
+            diffr: parseInt(recoveries[i])};
         if(i==4) { toSave.push(toInsOpt); }
         else { toSave.push(toIns); }  
     }

@@ -1,0 +1,237 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  title PHCT
+  meta(name='description' content='')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  meta(name='robots' content='all,follow')
+  // Bootstrap CSS
+  link(rel='stylesheet' href='vendor/bootstrap/css/bootstrap.min.css')
+  // Font Awesome CSS
+  link(rel='stylesheet' href='vendor/font-awesome/css/font-awesome.min.css')
+  // Custom Font Icons CSS
+  link(rel='stylesheet' href='css/font.css')
+  // Google fonts - Muli
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Muli:300,400,700')
+  // theme stylesheet
+  link#theme-stylesheet(rel='stylesheet' href='css/style.blue.css')
+  // Custom stylesheet - for your changes
+  link(rel='stylesheet' href='css/custom.css')
+  // Favicon
+  link(rel='shortcut icon' href='img/favicon.ico')
+  // Tweaks for older IEs
+  //if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+header.header
+  nav.navbar.navbar-expand-lg
+    .container-fluid.d-flex.align-items-center.justify-content-between
+      .navbar-header
+        // Navbar Header
+        a.navbar-brand(href='home')
+          .brand-text.brand-big.visible.text-uppercase
+            strong.text-primary PH
+            strong Covid19
+            strong.text-primary Tracker
+          .brand-text.brand-sm
+            strong.text-primary PH
+            strong C
+            strong.text-primary T
+        // Sidebar Toggle Btn
+        button.sidebar-toggle
+          i.fa.fa-long-arrow-left
+.d-flex.align-items-stretch
+  // Sidebar Navigation
+  nav#sidebar
+    // Sidebar Navidation Menus
+    ul.list-unstyled
+      li.active
+        a(href='home')
+          i.icon-home
+          | Home
+      li
+        a(href='tables.html')
+          i.icon-grid
+          | Tables
+      li
+        a(href='charts.html')
+          i.fa.fa-bar-chart
+          | Charts
+      li
+        a(href='aboutus')
+          i.icon-settings
+          | About Us
+  .page-content
+    section
+      .page-header
+        .container-fluid.text-center
+          h2.h5.no-margin-bottom.text-primary PH Covid-19 Information as of #{date}
+    section.no-padding-top.no-padding-bottom
+      .container-fluid
+        .row
+          .col-md-4.col-sm-4
+            .statistic-block.block
+              .progress-details.d-flex.align-items-end.justify-content-between
+                .title
+                  .icon.dashtext-5
+                    i.icon-line-chart
+                  strong.dashtext-5 CASES
+                .number.dashtext-5 #{pos}
+          .col-md-4.col-sm-4
+            .statistic-block.block
+              .progress-details.d-flex.align-items-end.justify-content-between
+                .title
+                  .icon.dashtext-3
+                    i.icon-paper-and-pencil
+                  strong.dashtext-3 DEATHS
+                .number.dashtext-3 #{dea}
+          .col-md-4.col-sm-4
+            .statistic-block.block
+              .progress-details.d-flex.align-items-end.justify-content-between
+                .title
+                  .icon.dashtext-4
+                    i.icon-page
+                  strong.dashtext-4 RECOVERIES
+                .number.dashtext-4 #{rec}
+    section.no-padding-bottom
+      .container-fluid
+        .row
+          .col-lg-12
+            .line-cahrt.block
+              canvas#lines
+    footer.footer
+      .footer__block.block.no-margin-bottom
+        .container-fluid.text-center
+          p.no-margin-bottom
+            | 2020 &copy; AMNA
+// JavaScript files
+script(src='vendor/jquery/jquery.min.js')
+script(src='vendor/popper.js/umd/popper.min.js')
+script(src='vendor/bootstrap/js/bootstrap.min.js')
+script(src='vendor/jquery.cookie/jquery.cookie.js')
+script(src='vendor/chart.js/Chart.min.js')
+script(src='vendor/jquery-validation/jquery.validate.min.js')
+script(src='js/charts-home.js')
+script(src='js/front.js')
+// Chart Script
+script.
+    var ilabel = JSON.parse('!{dl}');
+    var crate = JSON.parse('!{dp}');
+    var drate = JSON.parse('!{dd}');
+    var rrate = JSON.parse('!{dr}');
+
+    Chart.defaults.global.defaultFontColor = '#75787c';
+
+    var legendState = true;
+    if ($(window).outerWidth() < 576) {
+        legendState = false;
+    }
+
+    var LINE = $('#lines');
+    var myLine = new Chart(LINE, {
+        type: 'line',
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        minRotation: 90,
+                        maxRotation: 90,
+                        autoSkip: true,
+                        maxTicksLimit: 50
+                    },
+                    display: true,
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        stepSize: 100
+                    },
+                    display: true,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                display: legendState
+            }
+        },
+        data: {
+            labels: ilabel,
+            datasets: [
+                {
+                    label: "CASE RATE",
+                    fill: true,
+                    lineTension: 0.2,
+                    backgroundColor: "transparent",
+                    borderColor: "#F5990B",
+                    pointBorderColor: '#F5990B',
+                    pointHoverBackgroundColor: "#F5990B",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 2,
+                    pointBackgroundColor: "#F5990B",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 3,
+                    pointHoverBorderColor: "#F5990B",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 0,
+                    pointHitRadius: 10,
+                    data: crate,
+                    spanGaps: false
+                },
+                {
+                    label: "DEATH RATE",
+                    fill: true,
+                    lineTension: 0.2,
+                    backgroundColor: "transparent",
+                    borderColor: "#EF8C99",
+                    pointBorderColor: '#EF8C99',
+                    pointHoverBackgroundColor: "#EF8C99",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 2,
+                    pointBackgroundColor: "#EF8C99",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 3,
+                    pointHoverBorderColor: "#EF8C99",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 0,
+                    pointHitRadius: 10,
+                    data: drate,
+                    spanGaps: false
+                },
+                {
+                    label: "RECOVERY RATE",
+                    fill: true,
+                    lineTension: 0.2,
+                    backgroundColor: "transparent",
+                    borderColor: "#6FEB29",
+                    pointBorderColor: '#6FEB29',
+                    pointHoverBackgroundColor: "#6FEB29",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 2,
+                    pointBackgroundColor: "#6FEB29",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 3,
+                    pointHoverBorderColor: "#6FEB29",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 0,
+                    pointHitRadius: 10,
+                    data: rrate,
+                    spanGaps: false
+                }
+            ]
+        }
+    });

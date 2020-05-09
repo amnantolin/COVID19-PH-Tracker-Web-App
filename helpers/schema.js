@@ -7,23 +7,9 @@ const phSchema = new Schema({
     pcaseph: Number,
     dcaseph: Number,
     rcaseph: Number,
-    diff: Number
-    // datelog: {
-    //     type: mongoose.Schema.Types.Mixed,
-    //     required: true,
-    // },
-    // pcaseph: {
-    //     type: mongoose.Schema.Types.Mixed,
-    //     required: true,
-    // },
-    // rcaseph: {
-    //     type: mongoose.Schema.Types.Mixed,
-    //     required: true,
-    // },
-    // dcaseph: {
-    //     type: mongoose.Schema.Types.Mixed,
-    //     required: true,
-    // }
+    diffp: Number,
+    diffd: Number,
+    diffr: Number
 }, { versionKey: false });
 
 const phcase = mongoose.model("phcases", phSchema);
