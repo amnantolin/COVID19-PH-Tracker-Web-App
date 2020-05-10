@@ -120,6 +120,7 @@ script.
     var crate = JSON.parse('!{dp}');
     var drate = JSON.parse('!{dd}');
     var rrate = JSON.parse('!{dr}');
+    var average = JSON.parse('!{av}')
 
     Chart.defaults.global.defaultFontColor = '#75787c';
 
@@ -231,6 +232,29 @@ script.
                     pointHitRadius: 10,
                     data: rrate,
                     spanGaps: false
+                },
+                {
+                    label: "CASES RATE (10-Day Average)",
+                    fill: true,
+                    lineTension: 0.2,
+                    backgroundColor: "transparent",
+                    borderColor: "#F7ED1C",
+                    pointBorderColor: '#F7ED1C',
+                    pointHoverBackgroundColor: "#F7ED1C",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    borderWidth: 2,
+                    pointBackgroundColor: "#F7ED1C",
+                    pointBorderWidth: 5,
+                    pointHoverRadius: 3,
+                    pointHoverBorderColor: "#F7ED1C",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 0,
+                    pointHitRadius: 10,
+                    data: average,
+                    spanGaps: true
                 }
             ]
         }

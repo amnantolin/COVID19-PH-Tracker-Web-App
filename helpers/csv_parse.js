@@ -27,6 +27,9 @@ var header = temp[0].split(",");
 var cases = temp[1].split(",");
 var deaths = temp[2].split(",");
 var recoveries = temp[3].split(",");
+var dp = [];
+var dd = [];
+var dr = [];
 var toSave = [];
 
 // MONGODB UPLOAD DATA
@@ -36,16 +39,33 @@ const opt = {useUnifiedTopology: true, useNewUrlParser: true};
 
 function toStore(){
     for(var i=4; i < header.length; i++){
-        var toIns = {datelog: header[i], pcaseph: cases[i], dcaseph: deaths[i], 
-            rcaseph: recoveries[i], diffp: parseInt(cases[i])-parseInt(cases[i-1]), 
-            diffd: parseInt(deaths[i])-parseInt(deaths[i-1]), 
-            diffr: parseInt(recoveries[i])-parseInt(recoveries[i-1])};
-        var toInsOpt = {datelog: header[i], pcaseph: cases[i], dcaseph: deaths[i], 
-            rcaseph: recoveries[i], diffp: parseInt(cases[i]), diffd: parseInt(deaths[i]),
-            diffr: parseInt(recoveries[i])};
-        if(i==4) { toSave.push(toInsOpt); }
-        else { toSave.push(toIns); }  
+        if(i!=4){
+            dp.push(parseInt(cases[i])-parseInt(cases[i-1]));
+            dd.push(parseInt(deaths[i])-parseInt(deaths[i-1]));
+            dr.push(parseInt(recoveries[i])-parseInt(recoveries[i-1]));
+        }
+        else{
+            dp.push(parseInt(cases[i]));
+            dd.push(parseInt(deaths[i]));
+            dr.push(parseInt(recoveries[i]));
+        }
     }
+    for(var i=4; i < header.length; i++){
+        var finalave = 0;
+        if(i>12){
+            var aver = 0;
+            for(var k=i; k > i-10; k--){
+                aver += dp[k-4];   
+            }
+            finalave = aver/10;
+        }
+        else{
+            finalave = null;
+        }
+        var toIns = {datelog: header[i], pcaseph: cases[i], dcaseph: deaths[i], 
+            rcaseph: recoveries[i], diffp: dp[i-4], diffd: dd[i-4], diffr: dr[i-4], average: finalave};  
+        toSave.push(toIns);
+    }   
     console.log("Stored");
 }
 

@@ -167,16 +167,16 @@
 //     console.log(fast) // 3. this runs 3 seconds after 1.
 // }
 // sequentialStart();
-const fs = require("fs");
-const path = require("path");
-function getDateTime()
-{
-    const format = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year:'numeric', 
-    hour:'numeric', minute:'numeric', hour12:false, timeZoneName:'long', timeZone:'Asia/Manila' });
-    const date = format.format(new Date());
-    fs.writeFile(path.join(__dirname, "date.txt"), date, (err) => {
-        if (err) throw err;
-    })
-}
+// const fs = require("fs");
+// const path = require("path");
+// function getDateTime()
+// {
+//     const format = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year:'numeric', 
+//     hour:'numeric', minute:'numeric', hour12:false, timeZoneName:'long', timeZone:'Asia/Manila' });
+//     const date = format.format(new Date());
+//     fs.writeFile(path.join(__dirname, "date.txt"), date, (err) => {
+//         if (err) throw err;
+//     })
+// }
 
-getDateTime();
+// getDateTime();

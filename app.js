@@ -45,6 +45,7 @@ app.get('/home', (req, res) =>
     var diffp = [];
     var diffd = [];
     var diffr = [];
+    var ave = [];
     phcases.find({}).then(eachOne => {
         for(var i=0; i < eachOne.length; i++){
             datelog.push(eachOne[i]["datelog"])
@@ -54,6 +55,7 @@ app.get('/home', (req, res) =>
             diffp.push(eachOne[i]["diffp"]);
             diffd.push(eachOne[i]["diffd"]);
             diffr.push(eachOne[i]["diffr"]);
+            ave.push(eachOne[i]["average"]);
         }
         const p = plist[plist.length-1];
         const d = dlist[dlist.length-1];
@@ -61,7 +63,7 @@ app.get('/home', (req, res) =>
         const datetime = fs.readFileSync(path.join(__dirname, "csv", "date.txt")).toString();
         res.render("home", { pos: JSON.stringify(p), rec: JSON.stringify(r), dea: JSON.stringify(d), 
             date: JSON.stringify(datetime), dl: JSON.stringify(datelog), dp: JSON.stringify(diffp),
-            dd: JSON.stringify(diffd), dr: JSON.stringify(diffr) });
+            dd: JSON.stringify(diffd), dr: JSON.stringify(diffr), av: JSON.stringify(ave) });
     })
 }) 
 
