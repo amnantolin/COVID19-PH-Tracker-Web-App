@@ -50,51 +50,69 @@ header.header
         a(href='home')
           i.icon-home
           | Home
-      li
+      li.active
         a(href='tables')
           i.icon-grid
           | Tablular Data
-      li.active
+      li
         a(href='aboutus')
           i.icon-settings
           | About Us
   .page-content
     .container-fluid
       ul.breadcrumb
-    section.no-padding-top.no-padding-bottom
+    section.no-padding-top
       .container-fluid
         .row
-          .col-md-6.col-sm-6
-            .statistic-block.block
-              .progress-details.d-flex.align-items-end.justify-content-between
-                .title
-                  .container-fluid
-                    h4.text-primary ABOUT
-                    p
-                      | This Web Application portrays the current COVID-19 cases within the Philippines in a more graphical
-                      | manner which can be easily understood by the masses.
-                    h4.text-primary DISCLAIMER
-                    p
-                      | The Application made is not intended to be used in order to gain profits or other selfish acts.
-                      | Its sole purpose is to bring the latest information about the current COVID-19 pandemic cases,
-                      | including the number of positive cases, death tolls, and recovery count.
-          .col-md-6.col-sm-6
-            .statistic-block.block
-              .progress-details.d-flex.align-items-end.justify-content-between
-                .title
-                  .container-fluid
-                    h4.text-primary CREDITS
-                    h6.dashtext-2 Johns Hopkins University
-                    p
-                      | Source of all the data about Covid-19 Pandemic Cases used on this Web Application.
-                    h6.dashtext-2 Bootstrapious
-                    p Source of the HTML/CSS Dark Admin template used for the the app.
-                    h6.dashtext-2 Arryll Mori Antolin
-                    p Creator of the PHCT Web Application.
+        .col-lg-12
+          .block
+            .title
+              strong Compact Table
+            .table-responsive
+              table.table.table-striped.table-sm
+                thead
+                  tr
+                    th #
+                    th Date
+                    th Positive Cases
+                    th Death Count
+                    th Recovery Count
+                tbody
+                  tr
+                    th(scope='row') 1
+                    td Markxxxxxxxxxxxxxxxxxxx
+                    td Otto
+                    td @mdo
+                    td @aa
+                  tr
+                    th(scope='row') 2
+                    td Jacob
+                    td Thornton
+                    td @fat
+                    td @aa
+                  tr
+                    th(scope='row') 3
+                    td Larry
+                    td the Bird
+                    td @twitter
+                    td @aa
+                  tr
+                    th(scope='row') 4
+                    td Mark
+                    td Otto
+                    td @mdo
+                    td @aa
+                  tr
+                    th(scope='row') 5
+                    td Jacob
+                    td Thornton
+                    td @fat
+                    td @aa
     footer.footer
       .footer__block.block.no-margin-bottom
         .container-fluid.text-center
-          p.no-margin-bottom 2020 &copy; AMNA
+          p.no-margin-bottom
+            | 2020 &copy; AMNA
 // JavaScript files
 script(src='vendor/jquery/jquery.min.js')
 script(src='vendor/popper.js/umd/popper.min.js')

@@ -15,7 +15,6 @@ const url = process.env.MONGOLAB_URI;
 // RUN SCHEDULED UPDATES (EVERY 8 HRS)
 const runup = schedule.scheduleJob("0 */6 * * *", () =>
 {
-    getDateTime();
     const cp = childProcess.fork(path.join(__dirname, "helpers/csv_dl.js"));
     cp.on("exit", (code, signal) => {
         console.log("Download Done!", {code: code, signal: signal});
@@ -67,20 +66,15 @@ app.get('/home', (req, res) =>
     })
 }) 
 
+app.get('/tables', (req, res) =>
+{
+    res.render("tables", {});
+})
+
 app.get('/aboutus', (req, res) => 
 {
     res.render("aboutus", {});
 })
-
-function getDateTime()
-{
-    const format = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year:'numeric', 
-    hour:'numeric', minute:'numeric', hour12:false, timeZoneName:'long', timeZone:'Asia/Manila' });
-    const date = format.format(new Date());
-    fs.writeFile(path.join(__dirname, "csv", "date.txt"), date, (err) => {
-        if (err) throw err;
-    })
-}
 
 // ROUTES FOR GETTING SPECIFIC FIELD
 app.get('/api/all', (req, res) =>

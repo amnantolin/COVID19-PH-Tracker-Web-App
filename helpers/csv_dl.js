@@ -1,6 +1,7 @@
 const fs = require("fs");
 const request = require("request");
 const path = require("path");
+const async = require("async");
 
 const csvdir = `${__dirname}/../csv`
 const site1 = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
@@ -18,18 +19,46 @@ const download = (uri, filename, callback) =>
     })
 }
 
-download(site1, path.join(csvdir + '/cases.csv'), () =>
+function toDownall(){
+    download(site1, path.join(csvdir + '/cases.csv'), () =>
+    {
+        console.log("CSV-1 Download Complete");
+    });
+
+    download(site2, path.join(csvdir + '/deaths.csv'), () =>
+    {
+        console.log("CSV-2 Download Complete");
+    });
+
+    download(site3, path.join(csvdir + '/recovered.csv'), () =>
+    {
+        console.log("CSV-3 Download Complete");
+    });
+}
+
+function toGetDateTime()
 {
-    console.log("CSV-1 Download Complete");
+    const format = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year:'numeric', 
+    hour:'numeric', minute:'numeric', hour12:false, timeZoneName:'long', timeZone:'Asia/Manila' });
+    const date = format.format(new Date());
+    fs.writeFile(path.join(csvdir + '/date.txt'), date, (err) => {
+        if (err) throw err;
+        console.log("Timestamp Saved");
+    })
+}
+
+var q = async.priorityQueue(function(task, callback) {
+    callback();
+}, 1);
+
+q.push({name: 'Timestamp'}, 1, function(err) {
+    setTimeout(() => {
+        toGetDateTime();
+    }, 500);
 });
 
-download(site2, path.join(csvdir + '/deaths.csv'), () =>
-{
-    console.log("CSV-2 Download Complete");
+q.push({name: 'Download'}, 2, function(err) {
+    setTimeout(() => {
+        toDownall();
+    }, 3000);
 });
-
-download(site3, path.join(csvdir + '/recovered.csv'), () =>
-{
-    console.log("CSV-3 Download Complete");
-});
-
