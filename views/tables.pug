@@ -67,47 +67,22 @@ header.header
         .col-lg-12
           .block
             .title
-              strong Compact Table
+              strong.text-primary Daily COVID-19 PH Case Reports
             .table-responsive
               table.table.table-striped.table-sm
                 thead
                   tr
-                    th #
-                    th Date
-                    th Positive Cases
-                    th Death Count
-                    th Recovery Count
+                    th.dashtext-2(style="width:25%; text-align:center") Date
+                    th.dashtext-2(style="width:25%; text-align:center") Positive Cases Count
+                    th.dashtext-2(style="width:25%; text-align:center") Death Count
+                    th.dashtext-2(style="width:25%; text-align:center") Recovery Count
                 tbody
-                  tr
-                    th(scope='row') 1
-                    td Markxxxxxxxxxxxxxxxxxxx
-                    td Otto
-                    td @mdo
-                    td @aa
-                  tr
-                    th(scope='row') 2
-                    td Jacob
-                    td Thornton
-                    td @fat
-                    td @aa
-                  tr
-                    th(scope='row') 3
-                    td Larry
-                    td the Bird
-                    td @twitter
-                    td @aa
-                  tr
-                    th(scope='row') 4
-                    td Mark
-                    td Otto
-                    td @mdo
-                    td @aa
-                  tr
-                    th(scope='row') 5
-                    td Jacob
-                    td Thornton
-                    td @fat
-                    td @aa
+                  each item in info
+                    tr
+                      td.text-primary(style="text-align:center")=item.datelog
+                      td.text-primary(style="text-align:center")=item.pcaseph
+                      td.text-primary(style="text-align:center")=item.dcaseph
+                      td.text-primary(style="text-align:center")=item.rcaseph
     footer.footer
       .footer__block.block.no-margin-bottom
         .container-fluid.text-center

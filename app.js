@@ -68,7 +68,13 @@ app.get('/home', (req, res) =>
 
 app.get('/tables', (req, res) =>
 {
-    res.render("tables", {});
+    var data = [];
+    phcases.find({}).then(eachOne => {
+        for(var i=0; i < eachOne.length; i++){
+            data.push(eachOne[i]);
+        }
+        res.render("tables", { info: data });
+    })
 })
 
 app.get('/aboutus', (req, res) => 
