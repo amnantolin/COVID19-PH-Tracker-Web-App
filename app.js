@@ -118,13 +118,6 @@ app.get('/api/dcasesph', (req, res) =>
     })
 });
 
-app.get('/api/diff', (req, res) =>
-{
-    phcases.find({}, { _id:0, datelog:0, rcaseph:0, pcaseph:0, dcaseph: 0 }).then(eachOne => {
-        res.json(eachOne);
-    })
-});
-
 mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true}, (err, db) => 
 {
     if(err){
