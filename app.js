@@ -12,7 +12,7 @@ const app = express();
 dotenv.config({path: "var.env"});
 const url = process.env.MONGOLAB_URI;       
 
-// RUN SCHEDULED UPDATES (EVERY 8 HRS)
+// RUN SCHEDULED UPDATES (EVERY 6 HRS)
 const runup = schedule.scheduleJob("0 */6 * * *", () =>
 {
     const cp = childProcess.fork(path.join(__dirname, "helpers/csv_dl.js"));

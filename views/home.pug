@@ -68,7 +68,7 @@ header.header
     section.no-padding-top.no-padding-bottom
       .container-fluid
         .row
-          .col-md-4.col-sm-4
+          .col-md-4.col-sm-12
             .statistic-block.block
               .progress-details.d-flex.align-items-end.justify-content-between
                 .title
@@ -76,7 +76,7 @@ header.header
                     i.icon-line-chart
                   strong.dashtext-5 CASES
                 .number.dashtext-5 #{pos}
-          .col-md-4.col-sm-4
+          .col-md-4.col-sm-12
             .statistic-block.block
               .progress-details.d-flex.align-items-end.justify-content-between
                 .title
@@ -84,7 +84,7 @@ header.header
                     i.icon-paper-and-pencil
                   strong.dashtext-3 DEATHS
                 .number.dashtext-3 #{dea}
-          .col-md-4.col-sm-4
+          .col-md-4.col-sm-12
             .statistic-block.block
               .progress-details.d-flex.align-items-end.justify-content-between
                 .title
@@ -122,8 +122,18 @@ script.
     Chart.defaults.global.defaultFontColor = '#75787c';
 
     var legendState = true;
+    var tickxCount = 25;
+    var tickyCount = 10;
+    var step = 100;
+    var hoverRad = 3;
+    //- var orient = window.innerWidth > window.innerHeight ? "Landscape" : "Portrait";
+    
     if ($(window).outerWidth() < 576) {
         legendState = false;
+        tickxCount = 2;
+        tickyCount = 2;
+        step = 500;
+        hoverRad = 0;
     }
 
     var LINE = $('#lines');
@@ -136,7 +146,7 @@ script.
                         minRotation: 90,
                         maxRotation: 90,
                         autoSkip: true,
-                        maxTicksLimit: 50
+                        maxTicksLimit: tickxCount
                     },
                     display: true,
                     gridLines: {
@@ -146,7 +156,8 @@ script.
                 yAxes: [{
                     ticks: {
                         min: 0,
-                        stepSize: 100
+                        stepSize: step,
+                        maxTicksLimit: tickyCount
                     },
                     display: true,
                     gridLines: {
@@ -176,7 +187,7 @@ script.
                     borderWidth: 2,
                     pointBackgroundColor: "#F5990B",
                     pointBorderWidth: 5,
-                    pointHoverRadius: 3,
+                    pointHoverRadius: hoverRad,
                     pointHoverBorderColor: "#F5990B",
                     pointHoverBorderWidth: 2,
                     pointRadius: 0,
@@ -199,7 +210,7 @@ script.
                     borderWidth: 2,
                     pointBackgroundColor: "#EF8C99",
                     pointBorderWidth: 5,
-                    pointHoverRadius: 3,
+                    pointHoverRadius: hoverRad,
                     pointHoverBorderColor: "#EF8C99",
                     pointHoverBorderWidth: 2,
                     pointRadius: 0,
@@ -222,7 +233,7 @@ script.
                     borderWidth: 2,
                     pointBackgroundColor: "#6FEB29",
                     pointBorderWidth: 5,
-                    pointHoverRadius: 3,
+                    pointHoverRadius: hoverRad,
                     pointHoverBorderColor: "#6FEB29",
                     pointHoverBorderWidth: 2,
                     pointRadius: 0,
@@ -245,7 +256,7 @@ script.
                     borderWidth: 2,
                     pointBackgroundColor: "#F7ED1C",
                     pointBorderWidth: 5,
-                    pointHoverRadius: 3,
+                    pointHoverRadius: hoverRad,
                     pointHoverBorderColor: "#F7ED1C",
                     pointHoverBorderWidth: 2,
                     pointRadius: 0,

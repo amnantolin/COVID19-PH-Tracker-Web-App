@@ -8,4 +8,8 @@
 > All data used were gathered from **Johns Hopkins University**.
 
 ### Visit the PHCT WebApp
+<<<<<<< HEAD
 [ph-covid19-cases-monitoring.herokuapp.com/home](ph-covid19-cases-monitoring.herokuapp.com/home)
+=======
+[ph-covid19-cases-monitoring.herokuapp.com/home](ph-covid19-cases-monitoring.herokuapp.com/home)
+>>>>>>> 68132d2360ab627da595349ca602836aa8c8ffc1
