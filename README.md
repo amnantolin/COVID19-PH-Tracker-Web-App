@@ -7,4 +7,4 @@
 > The Web Application was made using the MEN (MongoDB-Express-NodeJS) Stack, together with PugJS and CSS in the frontend department. All data used were gathered from **Johns Hopkins University**.
 
 ### Visit the PHCT WebApp
-[ph-covid19-cases-monitoring.herokuapp.com/home](ph-covid19-cases-monitoring.herokuapp.com/home)
+[ph-covid19-cases-monitoring.herokuapp.com/home](http://ph-covid19-cases-monitoring.herokuapp.com/home)
