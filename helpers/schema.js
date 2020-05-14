@@ -10,7 +10,8 @@ const phSchema = new Schema({
     diffp: Number,
     diffd: Number,
     diffr: Number,
-    average: Number
+    average: Number,
+    tstamp: String
 }, { versionKey: false });
 
 const phcase = mongoose.model("phcases", phSchema);

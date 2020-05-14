@@ -22,7 +22,7 @@ for (var i=0; i<files.length; i++)
     }); 
 }
 
-// STORE GATHERED DATA
+// STORE GATHERED DATA FROM CSV
 var header = temp[0].split(",");
 var cases = temp[1].split(",");
 var deaths = temp[2].split(",");
@@ -32,11 +32,17 @@ var dd = [];
 var dr = [];
 var toSave = [];
 
+// TIMESTAMP OF DB UPDATE
+const format = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year:'numeric', 
+hour:'numeric', minute:'numeric', hour12:false, timeZoneName:'long', timeZone:'Asia/Manila' });
+const date = format.format(new Date());
+
 // MONGODB UPLOAD DATA
 dotenv.config({path: "var.env"});
 const url = process.env.MONGOLAB_URI;
 const opt = {useUnifiedTopology: true, useNewUrlParser: true}; 
 
+// PROCESS GATHERERED DATA FROM CSV
 function toStore(){
     for(var i=4; i < header.length; i++){
         if(i!=4){
@@ -63,35 +69,40 @@ function toStore(){
             finalave = null;
         }
         var toIns = {datelog: header[i], pcaseph: cases[i], dcaseph: deaths[i], 
-            rcaseph: recoveries[i], diffp: dp[i-4], diffd: dd[i-4], diffr: dr[i-4], average: finalave};  
+            rcaseph: recoveries[i], diffp: dp[i-4], diffd: dd[i-4], diffr: dr[i-4], average: finalave,
+            tstamp: date};  
         toSave.push(toIns);
     }   
     console.log("Stored");
 }
 
+// DELETE ALL FROM DB
 function toDelete(){
     phcases.deleteMany({}, (err) => {
         console.log("Deleted");
     });
 }
 
+// INSERT PROCESSED DATA TO DB
 function toInsert(){
     phcases.insertMany(toSave, (err) => {
-        console.log("Done!");
+        console.log("Saved");
     });
 }
 
+// CONNECT TO MONGODB USING MONGOOSE
 function toConnect(){
     mongoose.connect(url, opt);
     console.log("Connect");
 }
 
+// CLOSE CONNECTION FROM MONGODB
 function toDC(){
     mongoose.connection.close();
     console.log("DC");
 }
 
-
+// PRIORITY QUEUE TO MAINTAIN ORDERED EXECUTION OF TASKS 
 var q = async.priorityQueue(function(task, callback) {
     callback();
 }, 1);

@@ -34,7 +34,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug"); 
 app.use(express.static(path.join(__dirname, "views")));
 
-// ROUTES
+// MAIN ROUTES
 app.get('/home', (req, res) => 
 {
     var plist = [];
@@ -45,6 +45,7 @@ app.get('/home', (req, res) =>
     var diffd = [];
     var diffr = [];
     var ave = [];
+    var stamp = [];
     phcases.find({}).then(eachOne => {
         for(var i=0; i < eachOne.length; i++){
             datelog.push(eachOne[i]["datelog"])
@@ -55,11 +56,12 @@ app.get('/home', (req, res) =>
             diffd.push(eachOne[i]["diffd"]);
             diffr.push(eachOne[i]["diffr"]);
             ave.push(eachOne[i]["average"]);
+            stamp.push(eachOne[i]["tstamp"]);
         }
         const p = plist[plist.length-1];
         const d = dlist[dlist.length-1];
         const r = rlist[rlist.length-1];
-        const datetime = fs.readFileSync(path.join(__dirname, "csv", "date.txt")).toString();
+        const datetime = stamp[0];
         res.render("home", { pos: JSON.stringify(p), rec: JSON.stringify(r), dea: JSON.stringify(d), 
             date: JSON.stringify(datetime), dl: JSON.stringify(datelog), dp: JSON.stringify(diffp),
             dd: JSON.stringify(diffd), dr: JSON.stringify(diffr), av: JSON.stringify(ave) });
@@ -82,7 +84,7 @@ app.get('/aboutus', (req, res) =>
     res.render("aboutus", {});
 })
 
-// ROUTES FOR GETTING SPECIFIC FIELD
+// ROUTE FOR GETTING DB RECORDS IN JSON FORMAT 
 app.get('/api/all', (req, res) =>
 {
     phcases.find({}).then(eachOne => {
@@ -90,34 +92,7 @@ app.get('/api/all', (req, res) =>
     })
 });
 
-app.get('/api/datelog', (req, res) =>
-{
-    phcases.find({}, { _id:0, pcaseph:0, rcaseph:0, dcaseph:0, diff: 0 }).then(eachOne => {
-        res.json(eachOne);
-    })
-});
-
-app.get('/api/pcasesph', (req, res) =>
-{
-    phcases.find({}, { _id:0, datelog:0, rcaseph:0, dcaseph:0, diff: 0 }).then(eachOne => {
-        res.json(eachOne);
-    })
-});
-
-app.get('/api/rcasesph', (req, res) =>
-{
-    phcases.find({}, { _id:0, datelog:0, pcaseph:0, dcaseph:0, diff: 0 }).then(eachOne => {
-        res.json(eachOne);
-    })
-});
-
-app.get('/api/dcasesph', (req, res) =>
-{
-    phcases.find({}, { _id:0, datelog:0, rcaseph:0, pcaseph:0, diff: 0 }).then(eachOne => {
-        res.json(eachOne);
-    })
-});
-
+// CONNECT TO MONGODB USING MONGOOSE
 mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true}, (err, db) => 
 {
     if(err){
