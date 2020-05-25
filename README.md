@@ -22,5 +22,5 @@
 > 3. Open browser, then visit **localhost:8000/home** to open the web application
 > 4. **DONE!!** :+1:
 
-### Visit the PHCT WebApp
-[ph-covid19-cases-monitoring.herokuapp.com/home](http://ph-covid19-cases-monitoring.herokuapp.com/home)
+### VISIT PHCT WEB APP
+> [ph-covid19-cases-monitoring.herokuapp.com/home](http://ph-covid19-cases-monitoring.herokuapp.com/home)
